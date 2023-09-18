@@ -1,0 +1,16 @@
+# Ignore everything
+*
+# but these files
+!.gitignore
+!.gitattribute
+!readme.MD
+!LICENSE
+!CMakeLists.txt
+# and these filetypes
+!*.c
+!*.cpp
+!*.h
+!*.hpp
+!*.cmake
+# and these subdirectories
+!*/

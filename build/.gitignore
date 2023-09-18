@@ -1,0 +1,6 @@
+# Exclude everything
+*
+# But these two files
+!read.me
+!.gitignore
+
