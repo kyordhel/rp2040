@@ -4,6 +4,7 @@ Minimum setup possible (so far) using CMake.
 
 ## Contents:
 - `blink`: Blinks the Raspberry Pi Pico centinel led (build test).
+- `tempC`: Reports the RP2040 core temperature via USB-RS232 adapter.
 - `usblink`: Blinks the Raspberry Pi Pico centinel led. User defines sleep time via USB-RS232 adapter.
 
 ## Build:
@@ -14,4 +15,4 @@ Minimum setup possible (so far) using CMake.
 5. `make`
 6. `find . -type f -iname "*.uf2"`
 
-Finally upload either `uf2` file to the RP2040.
+Finally upload an `uf2` file to the RP2040.
