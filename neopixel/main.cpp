@@ -10,10 +10,14 @@
 
 #include"neopixel.h"
 
+// Neopixel pins in DualMCU
+#define NEOPIX_PWR 17  // NeoPixel power (on/off)
+#define NEOPIX_DIN 16  // NeoPixel data
+
 /**
  * The delay variable that is shared by the two threads
 */
-volatile uint32_t svDelay = 500;
+volatile uint16_t svHue = 0;
 
 /**
  * The mutex used to syncronize the acces to the shared vars
@@ -84,7 +88,7 @@ int main( void ){
 
 static void setup(){
 	stdio_init_all();
-	uint8_t pins[] = {PICO_DEFAULT_LED_PIN, 16, 17};
+	uint8_t pins[] = {PICO_DEFAULT_LED_PIN, NEOPIX_PWR, NEOPIX_DIN};
 	for (uint8_t i = 0; i < 3; ++i){
 		gpio_init(pins[i]);
 		gpio_set_dir(pins[i], GPIO_OUT);
@@ -94,42 +98,46 @@ static void setup(){
 
 
 static void blinkTask( void *param ){
-	int value = 0;
-	uint32_t blinkDelay;
-	gpio_put(16, 1);
-	vTaskDelay(pdMS_TO_TICKS(1000));
-	printf("Starting blink.\n");
+	uint16_t hue;
+	float brightness = 0;
+	float delta = 0.01;
+	uint32_t delay = 10;
 
-	vTaskDelay(pdMS_TO_TICKS(1));
+	gpio_put(NEOPIX_PWR, 1);
+	vTaskDelay(pdMS_TO_TICKS(500));
+	printf("Starting...\n");
 
-	NeoPixel np = NeoPixel(17, 1);
+	NeoPixel np = NeoPixel(NEOPIX_DIN, 1);
 
 	while(true){
-		gpio_put(PICO_DEFAULT_LED_PIN, value);
-		value = !value;
 		mutex_enter_blocking(&mutex);
-		blinkDelay = svDelay;
+		hue = svHue;
 		mutex_exit(&mutex);
-		vTaskDelay(pdMS_TO_TICKS(blinkDelay));
 
-		np.setColor(0, 64, 0, 0);
+		np.setHSV(0, hue, 1, brightness);
 		np.write();
+
+		brightness+= delta;
+		if((brightness <= 0) || (brightness >= 1))
+			delta*= -1;
+
+		vTaskDelay(pdMS_TO_TICKS(delay));
 	}
 }
 
 static void usbTask( void *param ){
-	uint32_t delay;
-	vTaskDelay(pdMS_TO_TICKS(1100));
+	uint32_t hue;
+	vTaskDelay(pdMS_TO_TICKS(550));
 	while(true){
-		printf("Delay [ms]: ");
-		if(!readInt(&delay)){
+		printf("NeoPixel hue [0-360): ");
+		if(!readInt(&hue)){
 			printf("\nInvalid input\n");
 			continue;
 		}
 		mutex_enter_blocking(&mutex);
-		svDelay = delay;
+		svHue = hue;
 		mutex_exit(&mutex);
-		printf("Delay set to %d\n", delay);
+		printf("NeoPixel hue set to %d\n", hue);
 	}
 }
 
