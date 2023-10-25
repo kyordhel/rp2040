@@ -8,5 +8,6 @@ include(freeRTOS_import.cmake)
 PROJECT(rp2040demos)
 
 add_subdirectory(blink)
+add_subdirectory(hello-world)
 add_subdirectory(tempC)
 add_subdirectory(usblink)
