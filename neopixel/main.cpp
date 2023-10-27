@@ -30,10 +30,10 @@ static mutex_t mutex;
 static void setup();
 
 /**
- * The task that will blink the led.
+ * The task that will handle the NeoPixel led.
  * @param  Parameter passed to the task. Not used.
  */
-static void blinkTask( void *param );
+static void neopixelTask( void *param );
 
 /**
  * The task that will read the USB
@@ -59,8 +59,8 @@ static uint32_t atou(char* buffer, char** endptr);
 int main( void ){
 	setup();
 
-	xTaskCreate( blinkTask,                 /* The function that implements the task. */
-				 "blink",                   /* The text name assigned to the task - for debug only as it is not used by the kernel. */
+	xTaskCreate( neopixelTask,              /* The function that implements the task. */
+				 "neopixel",                /* The text name assigned to the task - for debug only as it is not used by the kernel. */
 				 configMINIMAL_STACK_SIZE,  /* The size of the stack to allocate to the task. */
 				 NULL,                      /* The parameter passed to the task - not used in this case. */
 				 tskIDLE_PRIORITY,          /* The priority assigned to the task. */
@@ -97,7 +97,7 @@ static void setup(){
 }
 
 
-static void blinkTask( void *param ){
+static void neopixelTask( void *param ){
 	uint16_t hue;
 	float brightness = 0;
 	float delta = 0.01;
