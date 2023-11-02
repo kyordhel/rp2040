@@ -15,7 +15,7 @@
 #define NEOPIX_DIN 16  // NeoPixel data
 
 /**
- * The delay variable that is shared by the two threads
+ * The delay variable that is shared by the two tasks
 */
 volatile uint16_t svHue = 0;
 
