@@ -22,7 +22,7 @@ void main( void ){
 		xTaskCreate( helloTask,                 /* The function that implements the task. */
 					 NULL,                      /* The text name assigned to the task - for debug only as it is not used by the kernel. */
 					 configMINIMAL_STACK_SIZE,  /* The size of the stack to allocate to the task. */
-					 (void*) i,                 /* The parameter passed to the task - not used in this case. */
+					 (void*) i,                 /* The parameter passed to the task - the task number in this case. */
 					 1,                         /* The priority assigned to the task. */
 					 NULL );                    /* The task handle is not required, so NULL is passed. */
 	}

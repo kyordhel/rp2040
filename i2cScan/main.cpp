@@ -9,7 +9,6 @@
 #include <pico/binary_info.h>
 #include <hardware/gpio.h>
 #include <hardware/i2c.h>
-#include "lcd1602.h"
 
 // I²C Pins
 // I²C 0 - SDA: GP0/GP4/ GP8/GP12/GP16/GP20
@@ -102,7 +101,6 @@ bool reserved_addr(uint8_t addr) {
 	return (addr & 0x78) == 0 || (addr & 0x78) == 0x78;
 }
 
-static
 void i2c_scan(){
 	printf("I2C Bus Scan\n");
 	printf("   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");

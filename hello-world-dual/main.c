@@ -19,7 +19,7 @@ void main( void );
 void core1_main( void );
 
 /**
- * The Hello-World task to be run by both cores
+ * The Hello-World task to be run on Core0
  */
 void helloTask( void* param );
 
