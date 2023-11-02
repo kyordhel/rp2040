@@ -6,6 +6,7 @@ Minimum setup possible (so far) using CMake.
 - `blink`: Blinks the Raspberry Pi Pico centinel led (build test).
 - `hello-world`: Prints the "Hello World!" string using several tasks.
 - `tempC`: Reports the RP2040 core temperature via USB-RS232 adapter.
+- `i2cScan`: Scans for devices connected to the I²C bus.
 - `usblink`: Blinks the Raspberry Pi Pico centinel led. User defines sleep time via USB-RS232 adapter.
 
 ## Build:
