@@ -74,7 +74,9 @@ static void setup_i2c(){
 #if !defined(i2c_default) || !defined(PICO_DEFAULT_I2C_SDA_PIN) || !defined(PICO_DEFAULT_I2C_SCL_PIN)
 	#warning i2c/lcd_1602_i2c example requires a board with I2C pins
 #else
+	// Initialize I²C-1 at 400kHz for pins 1 & 2
 	i2c_init(&i2c1_inst, 400000);
+	// Enable pins 1 & 2 to run as I²C SDA and SCL (pull-up)
 	gpio_set_function(I2C_SDA_PIN, GPIO_FUNC_I2C);
 	gpio_set_function(I2C_SCL_PIN, GPIO_FUNC_I2C);
 	gpio_pull_up(I2C_SDA_PIN);
