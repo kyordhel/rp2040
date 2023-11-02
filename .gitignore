@@ -12,5 +12,6 @@
 !*.h
 !*.hpp
 !*.cmake
+!*.pio
 # and these subdirectories
 !*/
