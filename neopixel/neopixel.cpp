@@ -18,7 +18,7 @@ NeoPixel::NeoPixel(uint8_t pin, uint8_t pixel_count) {
 		offset,      // Program offset
 		pin,         // Pin used to control the neopixel lane
 		800000,      // Frequency: run at 800kHz
-		true
+		false        // RGBW: true. RGB false.
 	);
 	buffer = new uint32_t[pcount = pixel_count];
 }
